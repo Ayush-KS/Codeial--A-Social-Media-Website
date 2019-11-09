@@ -1,7 +1,7 @@
 module.exports.home = function(req, res) {
-    return res.end('<h1>Express is up and running!</h1>');
-}
-
-module.exports.home2 = function(req, res) {
-    return res.end('<h1>Yet another page!</h1>');
+    console.log(req.cookies);
+    res.cookie('user_id', 35)
+    return res.render('home', {
+        title: "Home"
+    });
 }

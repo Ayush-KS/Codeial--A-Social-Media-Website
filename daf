@@ -1,0 +1,23 @@
+[33mcommit 3f6433758b2dd48489acef95af5258a8b93550b8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Ayush Kumar Singh <astroash13.1@gmail.com>
+Date:   Thu Nov 7 23:23:26 2019 +0530
+
+    setup static files access for layouts and pages
+
+[33mcommit aefcfc0b8fb388cb63aa71a08535d547e2f544fa[m
+Author: Ayush Kumar Singh <astroash13.1@gmail.com>
+Date:   Sun Oct 6 18:15:38 2019 +0530
+
+    add a new route for users with profile and details and a new controllers for the same
+
+[33mcommit 9e2f6636df3f573bb37c5f502d5d7d73841fb581[m
+Author: Ayush Kumar Singh <astroash13.1@gmail.com>
+Date:   Sun Oct 6 15:44:33 2019 +0530
+
+    add a controller and a router for home
+
+[33mcommit c81e7f4d0dfd4e69ea99c928efd6c8b12cc05e1c[m
+Author: Ayush Kumar Singh <astroash13.1@gmail.com>
+Date:   Fri Oct 4 21:00:25 2019 +0530
+
+    First commit: Create the directory server and add express server!
