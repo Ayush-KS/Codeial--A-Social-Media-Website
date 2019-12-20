@@ -1,3 +1,24 @@
-<header>
-        Page Header!
+<header id="header">
+        <a href="/" id="heading">
+                Codeial
+        </a>
+        <ul class="horizontal-list">
+                <% if(locals.user) { %>
+                        <a href="/users/profile">
+                                <%= user.name %>
+                        </a>
+                        <br>
+                        <a href="/users/sign-out">
+                                Sign Out
+                        </a>
+                <% } else { %>
+                        <a href="/users/sign-in">
+                                Sign In
+                        </a>
+                        <br>
+                        <a href="/users/sign-up">
+                                Sign Up
+                        </a>
+                <% } %>
+        </ul>
 </header>
