@@ -12,7 +12,9 @@ router.get('/sign-out', usersController.destroySession);
 
 router.post('/create', usersController.create);
 
-router.get('/profile', passport.checkAuthentication,usersController.profile);
+router.get('/profile/:id', passport.checkAuthentication,usersController.profile);
+
+router.post('/update/:id', passport.checkAuthentication,usersController.update);
 
 router.post('/create-session', passport.authenticate(
     'local',
