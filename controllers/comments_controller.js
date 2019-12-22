@@ -18,7 +18,7 @@ module.exports.create = function(req, res) {
                     console.log("Error damn2!");
                     res.redirect('/');
                 }
-                console.log(post);
+                
                 post.comments.push(comment);
                 post.save();
 
@@ -26,4 +26,24 @@ module.exports.create = function(req, res) {
             });
         }
     });
+}
+
+module.exports.destroy = function(req, res) {
+    Comment.findById(req.params.id, function(err, comment) {
+        if(comment.user == req.user.id) {
+            let postId = comment.post;
+
+            console.log(postId);
+
+            comment.remove();
+            
+            Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}}, function(err, post) {
+                console.log("I am trying to pull!!"); 
+                return res.redirect('back');
+            });
+            console.log("I am still here!!"); 
+        } else {
+            return res.redirect('back');
+        }
+    })
 }
