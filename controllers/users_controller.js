@@ -43,33 +43,27 @@ module.exports.signIn = function(req, res) {
 }
 
 // Sign Up: Creating a user
-module.exports.create = function(req, res) {
-    console.log(req.body);
-    if(req.body.password != req.body.confirm_password) {
-        return res.redirect('back');
-    }
-
-    User.findOne({email: req.body.email}, function(err, user) {
-        
-        if(err) {
-            console.log("Error in signing up the user!");
-            return;
+module.exports.create = async function(req, res) {
+    
+    try{
+        if(req.body.password != req.body.confirm_password) {
+            return res.redirect('back');
         }
 
+        let user = await User.findOne({email: req.body.email})
+
         if(!user) {
-            console.log(req.body.email);
-            User.create(req.body, function(err, user) {
-                if(err) {
-                    console.log("Error in signing up the user!");
-                    return;
-                }
-                return res.redirect('/users/sign-in');
-            })
+            await User.create(req.body)
+            return res.redirect('/users/sign-in');
         } else {
             console.log("Error in sigsjksjkskjsj!");
             return res.redirect('back');
         }
-    })   
+
+    } catch(err) {
+        console.log("Error in signing up the user!");
+        return;
+    }
 }
 
 //Sign In: creating a session
