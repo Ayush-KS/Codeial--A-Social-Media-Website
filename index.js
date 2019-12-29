@@ -30,6 +30,9 @@ app.use(sassMiddleware({
     prefix: '/css'
 }));
 
+//Setting up flash messages
+const flash = require('connect-flash');
+
 // Setting static files
 app.use(express.static('./assets'));
 
@@ -46,6 +49,7 @@ const cookieParser = require('cookie-parser');
 // MiddleWares
 app.use(express.urlencoded());
 app.use(cookieParser());
+const customMware = require('./config/middleware');
 
 // Creating express-session
 app.use(session({
@@ -68,10 +72,14 @@ app.use(session({
     )
 }));
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMware.setFlash);
 
 const port = 8000;
 
