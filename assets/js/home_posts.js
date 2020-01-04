@@ -15,7 +15,7 @@
         
         newPostForm.submit(function(e){
             e.preventDefault();
-            console.log(newPostForm.serialize());
+//            console.log(newPostForm.serialize());
             
             $.ajax({
                 type: 'post',
@@ -27,6 +27,7 @@
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(` .delete-post-button`, newPost));
                     createComment($(` .new-comment-form`, newPost));
+                    $('#post-content').val("");
                 },
                 error: function(error) {
                     noty('error', 'Something went wrong :(');
@@ -72,9 +73,9 @@
     }
 
     let deletePost = function(deleteLink) {
-//        console.log(deleteLink);
+
         $(deleteLink).click(function(e) {
-            console.log(deleteLink);
+//            console.log(deleteLink);
             e.preventDefault();
 
             $.ajax({

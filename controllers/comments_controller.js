@@ -19,7 +19,7 @@ module.exports.create = async function(req, res) {
 
 //            console.log(comment);
             
-            post.comments.push(comment);
+            post.comments.unshift(comment);
             post.save();
 
             if(req.xhr) {

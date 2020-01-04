@@ -78,8 +78,12 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
+//Setting up flash messages
 app.use(flash());
 app.use(customMware.setFlash);
+
+//Making the uploads folder available to browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 const port = 8000;
 

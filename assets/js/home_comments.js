@@ -32,6 +32,7 @@ let createComment = function() {
                     $(`#post-${currPostId}>#post-comments-list>ul`).prepend(newComment);
                     deleteComment($(` .delete-comment-button`, newComment));
                     noty('success', 'Comment Added!');
+                    $('.comment-content').val("");
                 },
                 error: function(error) {
                     noty('error', 'Something went wrong :(');
