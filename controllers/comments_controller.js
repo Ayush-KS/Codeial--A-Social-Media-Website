@@ -1,6 +1,7 @@
 const Comment = require('../models/comments');
 const Post = require('../models/posts');
 const User = require('../models/users');
+const commentsMailer = require('../mailers/comments_mailer');
 
 
 module.exports.create = async function(req, res) {
@@ -15,8 +16,8 @@ module.exports.create = async function(req, res) {
                 user: req.user._id
             });
             
-            comment = await comment.populate('user', 'name').execPopulate();
-
+            comment = await comment.populate('user', 'name email').execPopulate();
+            commentsMailer.newComment(comment);
 //            console.log(comment);
             
             post.comments.unshift(comment);
