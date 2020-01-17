@@ -32,6 +32,8 @@ let createComment = function() {
                     $(`#post-${currPostId}>#post-comments-list>ul`).prepend(newComment);
                     deleteComment($(` .delete-comment-button`, newComment));
                     noty('success', 'Comment Added!');
+                    // CHANGE :: enable the functionality of the toggle like button on the new comment
+                    new ToggleLike($(' .toggle-like-button', newComment));
                     $('.comment-content').val("");
                 },
                 error: function(error) {
@@ -58,6 +60,13 @@ let newCommentDom = function(comment) {
     </p>
     <small>
         ${comment.user.name}
+    </small>
+    <small>
+                            
+        <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+            0 Likes
+        </a>
+    
     </small>
 </li>`)
 }

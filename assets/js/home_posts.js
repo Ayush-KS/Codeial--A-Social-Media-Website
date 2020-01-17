@@ -1,4 +1,5 @@
 {
+
     let noty = function(type, text) {
         new Noty({
             theme: 'relax',
@@ -27,6 +28,10 @@
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(` .delete-post-button`, newPost));
                     createComment($(` .new-comment-form`, newPost));
+
+                    // CHANGE :: enable the functionality of the toggle like button on the new post
+                    new ToggleLike($(' .toggle-like-button', newPost));
+
                     $('#post-content').val("");
                 },
                 error: function(error) {
@@ -53,6 +58,14 @@
         <br>
         <small>
             ${post.user.name}
+        </small>
+
+        <small>
+                            
+            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">
+                0 Likes
+            </a>
+        
         </small>
     
         <div id="post-comments">

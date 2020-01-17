@@ -1,7 +1,9 @@
 const Comment = require('../models/comments');
 const Post = require('../models/posts');
-const User = require('../models/users');
+const Like = require('../models/likes');
 const commentsMailer = require('../mailers/comments_mailer');
+const queue = require('../config/kue');
+const commentEmailWorker = require('../workers/comment_email_worker');
 
 
 module.exports.create = async function(req, res) {
@@ -17,11 +19,20 @@ module.exports.create = async function(req, res) {
             });
             
             comment = await comment.populate('user', 'name email').execPopulate();
-            commentsMailer.newComment(comment);
+//            commentsMailer.newComment(comment);
 //            console.log(comment);
             
             post.comments.unshift(comment);
             post.save();
+
+            // let job = queue.create('emails', comment).save(function(err) {
+            //     if(err) {
+            //         console.log("Error in creating queue");
+            //     }
+            //     console.log(job.id);
+            // });
+
+            commentsMailer.newComment(comment);
 
             if(req.xhr) {
                 
@@ -52,6 +63,8 @@ module.exports.destroy = async function(req, res) {
             comment.remove();
             
             await Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}}); 
+
+            Like.deleteMany({likeable: comment._id, onModel: 'Comment'});
 
             if(req.xhr) {
 //                console.log("XHRRRR CHAL RAHA HAIIII");
