@@ -60,11 +60,11 @@ module.exports.destroy = async function(req, res) {
         
         if(comment.user == req.user.id || post.user == req.user.id) {
 
+            await Like.deleteMany({likeable: comment, onModel: 'Comment'});
+
             comment.remove();
             
             await Post.findByIdAndUpdate(postId, { $pull: {comments: req.params.id}}); 
-
-            Like.deleteMany({likeable: comment._id, onModel: 'Comment'});
 
             if(req.xhr) {
 //                console.log("XHRRRR CHAL RAHA HAIIII");

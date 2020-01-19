@@ -24,6 +24,12 @@ app.use(expressLayouts);
 //Setting up SCSS
 const sassMiddleware = require('node-sass-middleware');
 
+//Setting up Socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('Chat server is listening on port 5000!');
+
 app.use(sassMiddleware({
     src: './assets/scss',
     dest: './assets/css',
